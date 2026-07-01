@@ -65,19 +65,4 @@ Connect to your tailnet, then hit internal IPs:
 - Jellyfin → add media libraries at `/data/media`
 - Tdarr → add Sonarr/Radarr libraries, set up HEVC transcode flow
 
-## Env Vars
-
-| Var | Required | Default |
-|-----|----------|---------|
-| `MEDIA_ROOT` | yes | — |
-| `PUID` / `PGID` | yes | 1000 |
-| `TZ` | yes | Australia/Sydney |
-| `LAN_SUBNET` | yes | — |
-| `RENDER_GROUP_ID` | no | — |
-| `TS_HOSTNAME` | no | arr-stack-vps |
-| `TS_AUTHKEY` | no | — |
-| `TS_EXTRA_ROUTES` | no | — |
-| `QBIT_USERNAME` | no | admin |
-| `QBIT_PASSWORD` | no | adminadmin |
-
 

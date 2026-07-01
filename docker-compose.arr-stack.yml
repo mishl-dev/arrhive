@@ -418,6 +418,7 @@ services:
   configurator:
     build: ./configurator
     container_name: configurator
+    profiles: ["setup"]
     <<: *default-security
     environment:
       - QBIT_USERNAME=${QBIT_USERNAME:-admin}
