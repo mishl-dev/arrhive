@@ -412,7 +412,7 @@ services:
       - TS_USERSPACE=false
       - TS_ACCEPT_DNS=false
       - TS_AUTHKEY=${TS_AUTHKEY:-}
-      - TS_EXTRA_ARGS=--advertise-routes=${LAN_SUBNET:-10.10.0.0/24}${TS_EXTRA_ROUTES:+,${TS_EXTRA_ROUTES}} --accept-routes
+      - TS_EXTRA_ARGS=--advertise-routes=${LAN_SUBNET:-10.10.0.0/24},172.20.0.0/24 --accept-routes
     healthcheck:
       test: ["CMD", "tailscale", "status", "--peers=false"]
       interval: 30s
