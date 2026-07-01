@@ -282,7 +282,7 @@ services:
   # Access: 172.20.0.30:8080 (via Tailscale)
   # ═══════════════════════════════════════════════════════════════════════════
   homer:
-    image: b4bz/homer:v26.4.2
+    image: b4bz/homer:latest
     container_name: homer
     user: "${PUID:-1000}:${PGID:-1000}"
     volumes:
