@@ -56,7 +56,7 @@ services:
         subtitle: "Media server"
         url: "http://172.20.0.4:8096"
       - name: "Unmanic"
-        logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/unmanic.svg"
+        logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/unmanic.png"
         subtitle: "Transcoding"
         url: "http://172.20.0.22:8888"
 
