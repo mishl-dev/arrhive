@@ -11,8 +11,6 @@ volumes:
   jellyfin-cache:
   seerr-config:
   bazarr-config:
-  unmanic-config:
-  unmanic-cache:
   tailscale-state:
 
 #########################
@@ -332,50 +330,6 @@ services:
       timeout: 60s
       retries: 2
       start_period: 60s
-
-  # ═══════════════════════════════════════════════════════════════════════════
-  # UNMANIC - Media library optimiser. Transcodes files to HEVC/H.265 for
-  # space savings. Access: 172.20.0.22:8888 (via Tailscale)
-  # ═══════════════════════════════════════════════════════════════════════════
-  unmanic:
-    image: josh5/unmanic:latest
-    container_name: unmanic
-    security_opt:
-      - no-new-privileges:false
-    cap_drop:
-      - ALL
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
-      - SETUID
-      - SETGID
-    environment:
-      - PUID=${PUID:-1000}
-      - PGID=${PGID:-1000}
-      - TZ=${TZ:-UTC}
-      - NUMBER_OF_WORKERS=${UNMANIC_WORKERS:-2}
-      - SCHEDULE_FULL_SCAN_MINUTES=${UNMANIC_SCAN_INTERVAL:-10}
-      - RUN_FULL_SCAN_ON_START=false
-    # GPU passthrough for hardware-accelerated transcoding (uncomment if available)
-    # devices:
-    #   - /dev/dri:/dev/dri
-    # group_add:
-    #   - "${RENDER_GROUP_ID:-0}"
-    volumes:
-      - unmanic-config:/config
-      - unmanic-cache:/tmp/unmanic
-      - ${MEDIA_ROOT:-/data}/media:/library
-    networks:
-      arr-stack:
-        ipv4_address: 172.20.0.22
-    restart: always
-    logging: *default-logging
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://localhost:8888"]
-      interval: 2m
-      timeout: 15s
-      retries: 3
-      start_period: 30s
 
   # ═══════════════════════════════════════════════════════════════════════════
   # TAILSCALE - Private remote access to the internal Docker network.

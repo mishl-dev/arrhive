@@ -71,7 +71,6 @@ wait_for "Sonarr"  "http://sonarr:8989/api/v3/system/status" || true
 wait_for "Radarr"  "http://radarr:7878/api/v3/system/status" || true
 wait_for "Prowlarr" "http://prowlarr:9696/api/v1/system/status" || true
 wait_for "qBittorrent" "http://qbittorrent:8085/" || true
-wait_for "Unmanic" "http://unmanic:8888" || true
 wait_for "Bazarr"  "http://bazarr:6767" || true
 
 # ─── Read API keys from config volumes ────────────────────────────────────────
@@ -276,12 +275,5 @@ fi
 log "Jellyfin — add media libraries manually in the web UI:"
 log "  Movies: /data/media/movies"
 log "  TV Shows: /data/media/tv"
-
-# ═════════════════════════════════════════════════════════════════════════════
-# UNMANIC Configuration
-# ═════════════════════════════════════════════════════════════════════════════
-log "Unmanic — add libraries in the web UI:"
-log "  Source: /library"
-log "  (mounts to /data/media from compose)"
 
 log "Setup complete!"

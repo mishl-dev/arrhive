@@ -48,17 +48,13 @@ services:
         subtitle: "Requests"
         url: "http://172.20.0.8:5055"
 
-  - name: "Playback & Transcoding"
+  - name: "Playback"
     icon: "fas fa-play-circle"
     items:
       - name: "Jellyfin"
         logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/jellyfin.svg"
         subtitle: "Media server"
         url: "http://172.20.0.4:8096"
-      - name: "Unmanic"
-        logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/unmanic.png"
-        subtitle: "Transcoding"
-        url: "http://172.20.0.22:8888"
 
   - name: "Infrastructure"
     icon: "fas fa-server"
