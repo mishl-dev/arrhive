@@ -13,7 +13,6 @@ volumes:
   bazarr-config:
   tdarr-config:
   tailscale-state:
-  heimdall-config:
 
 #########################
 # Networks              #
@@ -300,31 +299,22 @@ services:
       start_period: 60s
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # HEIMDALL - Dashboard. Single page to access all services.
-  # Access: 172.20.0.30:80 (via Tailscale)
+  # HOMER - Dashboard. Static YAML config, no backend.
+  # Access: 172.20.0.30:8080 (via Tailscale)
   # ═══════════════════════════════════════════════════════════════════════════
-  heimdall:
-    image: lscr.io/linuxserver/heimdall:2.6.2
-    container_name: heimdall
-    <<: *lsio-security
+  homer:
+    image: b4bz/homer:v26.4.2
+    container_name: homer
+    <<: *default-security
     environment:
-      - PUID=${PUID:-1000}
-      - PGID=${PGID:-1000}
-      - TZ=${TZ:-UTC}
+      - INIT_ASSETS=1
     volumes:
-      - heimdall-config:/config
-      - ./config/heimdall/config:/config/heimdall/config
+      - ./config/homer:/www/assets
     networks:
       arr-stack:
         ipv4_address: 172.20.0.30
     restart: always
     logging: *default-logging
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://localhost:80/"]
-      interval: 2m
-      timeout: 10s
-      retries: 3
-      start_period: 30s
 
   # ═══════════════════════════════════════════════════════════════════════════
   # FLARESOLVERR - Cloudflare challenge solver. Helps Prowlarr access

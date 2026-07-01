@@ -1,0 +1,70 @@
+---
+title: "Arrhive"
+subtitle: "Media Stack"
+logo: ""
+header: true
+footer: false
+columns: "3"
+connectivityCheck: true
+
+links:
+  - name: "GitHub"
+    icon: "fab fa-github"
+    url: "https://github.com/mishl-dev/arrhive"
+
+services:
+  - name: "Downloads"
+    icon: "fas fa-download"
+    items:
+      - name: "qBittorrent"
+        logo: "assets/icons/qbittorrent.png"
+        subtitle: "Torrent client"
+        url: "http://172.20.0.17:8085"
+      - name: "SABnzbd"
+        logo: "assets/icons/sabnzbd.png"
+        subtitle: "Usenet client"
+        url: "http://172.20.0.18:8080"
+
+  - name: "Arr Services"
+    icon: "fas fa-robot"
+    items:
+      - name: "Sonarr"
+        logo: "assets/icons/sonarr.png"
+        subtitle: "TV shows"
+        url: "http://172.20.0.10:8989"
+      - name: "Radarr"
+        logo: "assets/icons/radarr.png"
+        subtitle: "Movies"
+        url: "http://172.20.0.11:7878"
+      - name: "Prowlarr"
+        logo: "assets/icons/prowlarr.png"
+        subtitle: "Indexers"
+        url: "http://172.20.0.19:9696"
+      - name: "Bazarr"
+        logo: "assets/icons/bazarr.png"
+        subtitle: "Subtitles"
+        url: "http://172.20.0.9:6767"
+      - name: "Seerr"
+        logo: "assets/icons/seerr.png"
+        subtitle: "Requests"
+        url: "http://172.20.0.8:5055"
+
+  - name: "Media"
+    icon: "fas fa-play-circle"
+    items:
+      - name: "Jellyfin"
+        logo: "assets/icons/jellyfin.png"
+        subtitle: "Media server"
+        url: "http://172.20.0.4:8096"
+      - name: "Tdarr"
+        logo: "assets/icons/tdarr.png"
+        subtitle: "Transcoding"
+        url: "http://172.20.0.22:8265"
+
+  - name: "Tools"
+    icon: "fas fa-wrench"
+    items:
+      - name: "FlareSolverr"
+        logo: "assets/icons/flaresolverr.png"
+        subtitle: "CF solver"
+        url: "http://172.20.0.21:8191"
