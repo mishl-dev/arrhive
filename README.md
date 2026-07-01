@@ -55,6 +55,7 @@ Connect to your tailnet, then hit internal IPs:
 | Seerr | `http://172.20.0.8:5055` |
 | Bazarr | `http://172.20.0.9:6767` |
 | Tdarr | `http://172.20.0.22:8265` |
+| Heimdall | `http://172.20.0.30:80` |
 
 **7. Configure in UIs**
 
