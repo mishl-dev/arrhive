@@ -358,10 +358,7 @@ services:
   tdarr:
     image: ghcr.io/haveagitgat/tdarr:2.27.02
     container_name: tdarr
-    <<: *default-security
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
+    <<: *lsio-security
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
