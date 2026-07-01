@@ -55,10 +55,10 @@ services:
         logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/jellyfin.svg"
         subtitle: "Media server"
         url: "http://172.20.0.4:8096"
-      - name: "Tdarr"
-        logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/tdarr.png"
+      - name: "Unmanic"
+        logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/unmanic.svg"
         subtitle: "Transcoding"
-        url: "http://172.20.0.22:8265"
+        url: "http://172.20.0.22:8888"
 
   - name: "Infrastructure"
     icon: "fas fa-server"

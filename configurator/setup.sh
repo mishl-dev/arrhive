@@ -12,10 +12,10 @@ warn() { echo -e "${YELLOW}[setup]${NC} $*"; }
 err()  { echo -e "${RED}[setup]${NC} $*"; }
 
 # ─── Media directories ────────────────────────────────────────────────────────
-log "Creating media directories..."
-mkdir -p /data/media/movies /data/media/tv
-chmod -R 777 /data/media
-log "Media directories ready: /data/media/{movies,tv}"
+log "Creating media and downloads directories..."
+mkdir -p /data/media/movies /data/media/tv /data/downloads
+chmod -R 777 /data/media /data/downloads
+log "Directories ready: /data/media/{movies,tv} and /data/downloads"
 
 # ─── Wait for service ─────────────────────────────────────────────────────────
 wait_for() {
@@ -71,7 +71,7 @@ wait_for "Sonarr"  "http://sonarr:8989/api/v3/system/status" || true
 wait_for "Radarr"  "http://radarr:7878/api/v3/system/status" || true
 wait_for "Prowlarr" "http://prowlarr:9696/api/v1/system/status" || true
 wait_for "qBittorrent" "http://qbittorrent:8085/" || true
-wait_for "Tdarr"   "http://tdarr:8265" || true
+wait_for "Unmanic" "http://unmanic:8888" || true
 wait_for "Bazarr"  "http://bazarr:6767" || true
 
 # ─── Read API keys from config volumes ────────────────────────────────────────
@@ -278,10 +278,10 @@ log "  Movies: /data/media/movies"
 log "  TV Shows: /data/media/tv"
 
 # ═════════════════════════════════════════════════════════════════════════════
-# TDARR Configuration
+# UNMANIC Configuration
 # ═════════════════════════════════════════════════════════════════════════════
-log "Tdarr — configure libraries in the web UI:"
-log "  Movies: /data/media/movies"
-log "  TV Shows: /data/media/tv"
+log "Unmanic — add libraries in the web UI:"
+log "  Source: /library"
+log "  (mounts to /data/media from compose)"
 
 log "Setup complete!"

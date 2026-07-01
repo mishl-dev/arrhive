@@ -1,6 +1,6 @@
 # Arrhive
 
-A minimal Docker Compose media automation stack — Jellyfin, Sonarr, Radarr, Prowlarr, qBittorrent, SABnzbd, Seerr, Bazarr, Tdarr. All access via Tailscale, no open ports.
+A minimal Docker Compose media automation stack — Jellyfin, Sonarr, Radarr, Prowlarr, qBittorrent, SABnzbd, Seerr, Bazarr, Unmanic. All access via Tailscale, no open ports.
 
 ## Setup
 
@@ -54,7 +54,7 @@ Connect to your tailnet, then hit internal IPs:
 | Prowlarr | `http://172.20.0.19:9696` |
 | Seerr | `http://172.20.0.8:5055` |
 | Bazarr | `http://172.20.0.9:6767` |
-| Tdarr | `http://172.20.0.22:8265` |
+| Unmanic | `http://172.20.0.22:8888` |
 | Homer | `http://172.20.0.30:8080` |
 
 **7. Configure in UIs**
@@ -62,6 +62,6 @@ Connect to your tailnet, then hit internal IPs:
 - Prowlarr → add indexers (Nyaa.si for anime, etc.)
 - Seerr → link Sonarr/Radarr
 - Jellyfin → add media libraries at `/data/media`
-- Tdarr → add Sonarr/Radarr libraries, set up HEVC transcode flow
+- Unmanic → add `/library`, configure HEVC transcode preset
 
 

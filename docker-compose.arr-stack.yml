@@ -11,7 +11,8 @@ volumes:
   jellyfin-cache:
   seerr-config:
   bazarr-config:
-  tdarr-config:
+  unmanic-config:
+  unmanic-cache:
   tailscale-state:
 
 #########################
@@ -352,36 +353,39 @@ services:
       start_period: 60s
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # TDARR - Media transcoding. Re-encodes libraries to HEVC/H.265 for savings.
-  # Access: 172.20.0.22:8265 (via Tailscale)
+  # UNMANIC - Media library optimiser. Transcodes files to HEVC/H.265 for
+  # space savings. Access: 172.20.0.22:8888 (via Tailscale)
   # ═══════════════════════════════════════════════════════════════════════════
-  tdarr:
-    image: ghcr.io/haveagitgat/tdarr:2.27.02
-    container_name: tdarr
-    <<: *lsio-security
+  unmanic:
+    image: josh5/unmanic:latest
+    container_name: unmanic
+    <<: *default-security
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
-      - TDARR_SERVER_PORT=8265
-      - TDARR_WEBUI_PORT=8265
-      - TDARR_NODE_NAME=tdarr-node
+      - NUMBER_OF_WORKERS=${UNMANIC_WORKERS:-2}
+      - SCHEDULE_FULL_SCAN_MINUTES=${UNMANIC_SCAN_INTERVAL:-10}
+      - RUN_FULL_SCAN_ON_START=false
     # GPU passthrough for hardware-accelerated transcoding (uncomment if available)
     # devices:
     #   - /dev/dri:/dev/dri
     # group_add:
     #   - "${RENDER_GROUP_ID:-0}"
     volumes:
-      - tdarr-config:/app/server
-      - tdarr-config:/app/configs
-      - ${MEDIA_ROOT:-/data}/media:/data/media
+      - unmanic-config:/config
+      - unmanic-cache:/tmp/unmanic
+      - ${MEDIA_ROOT:-/data}/media:/library
     networks:
       arr-stack:
         ipv4_address: 172.20.0.22
     restart: always
     logging: *default-logging
     healthcheck:
-      test: ["CMD", "curl", "-sf", "http://localhost:8265"]
+      test: ["CMD", "curl", "-sf", "http://localhost:8888"]
       interval: 2m
       timeout: 15s
       retries: 3
