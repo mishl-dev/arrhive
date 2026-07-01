@@ -12,19 +12,19 @@ links:
     url: "https://github.com/mishl-dev/arrhive"
 
 services:
-  - name: "Downloads"
+  - name: "Download Clients"
     icon: "fas fa-download"
     items:
       - name: "qBittorrent"
         logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/qbittorrent.svg"
-        subtitle: "Torrent client"
+        subtitle: "Torrents"
         url: "http://172.20.0.17:8085"
       - name: "SABnzbd"
         logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/sabnzbd.svg"
-        subtitle: "Usenet client"
+        subtitle: "Usenet"
         url: "http://172.20.0.18:8080"
 
-  - name: "Arr Services"
+  - name: "Media Automation"
     icon: "fas fa-robot"
     items:
       - name: "Sonarr"
@@ -48,7 +48,7 @@ services:
         subtitle: "Requests"
         url: "http://172.20.0.8:5055"
 
-  - name: "Media"
+  - name: "Playback & Transcoding"
     icon: "fas fa-play-circle"
     items:
       - name: "Jellyfin"
@@ -60,10 +60,10 @@ services:
         subtitle: "Transcoding"
         url: "http://172.20.0.22:8265"
 
-  - name: "Tools"
-    icon: "fas fa-wrench"
+  - name: "Infrastructure"
+    icon: "fas fa-server"
     items:
       - name: "FlareSolverr"
         logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/flaresolverr.svg"
-        subtitle: "CF solver"
+        subtitle: "Cloudflare bypass"
         url: "http://172.20.0.21:8191"
