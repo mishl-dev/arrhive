@@ -37,17 +37,8 @@ x-logging: &default-logging
     max-size: "10m"
     max-file: "3"
 
-#########################
-# Security Defaults     #
-#########################
-x-security: &default-security
-  security_opt:
-    - no-new-privileges:true
-  cap_drop:
-    - ALL
-
 # LinuxServer.io images use s6-overlay which needs CHOWN/SETUID/SETGID/DAC_OVERRIDE
-# to switch users during init. Extend default-security with these caps.
+# to switch users during init.
 x-security-lsio: &lsio-security
   security_opt:
     - no-new-privileges:true
@@ -208,10 +199,6 @@ services:
   jellyfin:
     image: jellyfin/jellyfin:10.11
     container_name: jellyfin
-    <<: *default-security
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
     environment:
       - TZ=${TZ:-UTC}
     devices:
@@ -242,10 +229,6 @@ services:
     image: ghcr.io/seerr-team/seerr:v3.3.0
     init: true
     container_name: seerr
-    <<: *default-security
-    cap_add:
-      - CHOWN
-      - DAC_OVERRIDE
     environment:
       - LOG_LEVEL=info
       - TZ=${TZ:-UTC}
@@ -323,7 +306,6 @@ services:
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:v3.4.6
     container_name: flaresolverr
-    <<: *default-security
     environment:
       - LOG_LEVEL=info
       - TZ=${TZ:-UTC}
@@ -442,7 +424,6 @@ services:
     build: ./configurator
     container_name: configurator
     profiles: ["setup"]
-    <<: *default-security
     environment:
       - QBIT_USERNAME=${QBIT_USERNAME:-admin}
       - QBIT_PASSWORD=${QBIT_PASSWORD:-adminadmin}
