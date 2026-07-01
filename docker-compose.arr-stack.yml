@@ -199,14 +199,11 @@ services:
     container_name: jellyfin
     environment:
       - TZ=${TZ:-UTC}
-    devices:
-      - /dev/dri:/dev/dri
-    group_add:
-      - "${RENDER_GROUP_ID:-0}"
     volumes:
       - jellyfin-config:/config
       - jellyfin-cache:/cache
       - ${MEDIA_ROOT:-/data}/media:/data/media
+      - /data/transcodes:/transcodes
     networks:
       arr-stack:
         ipv4_address: 172.20.0.4
