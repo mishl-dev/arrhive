@@ -413,7 +413,7 @@ services:
 
   # ═══════════════════════════════════════════════════════════════════════════
   # CONFIGURATOR - One-shot setup. Creates media dirs and configures services.
-  # Run: docker compose up configurator
+  # Run: docker compose --profile setup up configurator
   # ═══════════════════════════════════════════════════════════════════════════
   configurator:
     build: ./configurator

@@ -28,7 +28,7 @@ docker compose -f docker-compose.arr-stack.yml up -d
 **4. Run configurator**
 
 ```bash
-docker compose -f docker-compose.arr-stack.yml up configurator
+docker compose -f docker-compose.arr-stack.yml --profile setup up configurator
 ```
 
 Creates media dirs (`/data/media/movies`, `/data/media/tv`), configures Sonarr/Radarr root folders, connects qBittorrent, and links Prowlarr.
@@ -59,9 +59,7 @@ Connect to your tailnet, then hit internal IPs:
 **7. Configure in UIs**
 
 - Prowlarr → add indexers (Nyaa.si for anime, etc.)
-- Sonarr/Radarr → quality profiles, connect download clients (qBittorrent `172.20.0.17:8085`, SABnzbd `172.20.0.18:8080`)
 - Seerr → link Sonarr/Radarr
-- Bazarr → link Sonarr/Radarr
 - Jellyfin → add media libraries at `/data/media`
 - Tdarr → add Sonarr/Radarr libraries, set up HEVC transcode flow
 
