@@ -71,14 +71,16 @@ services:
     container_name: qbittorrent
     <<: *lsio-security
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
       - WEBUI_PORT=8085
+      - WEBUI_USERNAME=${QBIT_USERNAME:-admin}
+      - WEBUI_PASSWORD=${QBIT_PASSWORD:-adminadmin}
       - DOCKER_MODS=ghcr.io/vuetorrent/vuetorrent-lsio-mod:latest
     volumes:
       - qbittorrent-config:/config
-      - ${MEDIA_ROOT}:/data
+      - ${MEDIA_ROOT:-/data}:/data
     networks:
       arr-stack:
         ipv4_address: 172.20.0.17
@@ -100,12 +102,12 @@ services:
     container_name: sabnzbd
     <<: *lsio-security
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
     volumes:
       - sabnzbd-config:/config
-      - ${MEDIA_ROOT}:/data
+      - ${MEDIA_ROOT:-/data}:/data
     networks:
       arr-stack:
         ipv4_address: 172.20.0.18
@@ -127,15 +129,15 @@ services:
     container_name: sonarr
     <<: *lsio-security
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
     networks:
       arr-stack:
         ipv4_address: 172.20.0.10
     volumes:
       - sonarr-config:/config
-      - ${MEDIA_ROOT}:/data
+      - ${MEDIA_ROOT:-/data}:/data
     restart: always
     logging: *default-logging
     healthcheck:
@@ -154,9 +156,9 @@ services:
     container_name: prowlarr
     <<: *lsio-security
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
     volumes:
       - prowlarr-config:/config
     networks:
@@ -180,15 +182,15 @@ services:
     container_name: radarr
     <<: *lsio-security
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
     networks:
       arr-stack:
         ipv4_address: 172.20.0.11
     volumes:
       - radarr-config:/config
-      - ${MEDIA_ROOT}:/data
+      - ${MEDIA_ROOT:-/data}:/data
     restart: always
     logging: *default-logging
     healthcheck:
@@ -210,7 +212,7 @@ services:
       - CHOWN
       - DAC_OVERRIDE
     environment:
-      - TZ=${TZ}
+      - TZ=${TZ:-UTC}
     devices:
       - /dev/dri:/dev/dri
     group_add:
@@ -218,7 +220,7 @@ services:
     volumes:
       - jellyfin-config:/config
       - jellyfin-cache:/cache
-      - ${MEDIA_ROOT}/media:/data/media
+      - ${MEDIA_ROOT:-/data}/media:/data/media
     networks:
       arr-stack:
         ipv4_address: 172.20.0.4
@@ -245,7 +247,7 @@ services:
       - DAC_OVERRIDE
     environment:
       - LOG_LEVEL=info
-      - TZ=${TZ}
+      - TZ=${TZ:-UTC}
       - PORT=5055
     networks:
       arr-stack:
@@ -278,15 +280,15 @@ services:
     container_name: bazarr
     <<: *lsio-security
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
     networks:
       arr-stack:
         ipv4_address: 172.20.0.9
     volumes:
       - bazarr-config:/config
-      - ${MEDIA_ROOT}/media:/data/media
+      - ${MEDIA_ROOT:-/data}/media:/data/media
     restart: always
     logging: *default-logging
     healthcheck:
@@ -306,7 +308,7 @@ services:
     <<: *default-security
     environment:
       - LOG_LEVEL=info
-      - TZ=${TZ}
+      - TZ=${TZ:-UTC}
     networks:
       arr-stack:
         ipv4_address: 172.20.0.21
@@ -343,9 +345,9 @@ services:
       - CHOWN
       - DAC_OVERRIDE
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
       - TDARR_SERVER_PORT=8265
       - TDARR_WEBUI_PORT=8265
       - TDARR_NODE_NAME=tdarr-node
@@ -357,7 +359,7 @@ services:
     volumes:
       - tdarr-config:/app/server
       - tdarr-config:/app/configs
-      - ${MEDIA_ROOT}/media:/data/media
+      - ${MEDIA_ROOT:-/data}/media:/data/media
     networks:
       arr-stack:
         ipv4_address: 172.20.0.22
@@ -395,7 +397,7 @@ services:
       - TS_USERSPACE=false
       - TS_ACCEPT_DNS=false
       - TS_AUTHKEY=${TS_AUTHKEY:-}
-      - TS_EXTRA_ARGS=--advertise-routes=${LAN_SUBNET}${TS_EXTRA_ROUTES:+,${TS_EXTRA_ROUTES}} --accept-routes
+      - TS_EXTRA_ARGS=--advertise-routes=${LAN_SUBNET:-10.10.0.0/24}${TS_EXTRA_ROUTES:+,${TS_EXTRA_ROUTES}} --accept-routes
     healthcheck:
       test: ["CMD", "tailscale", "status", "--peers=false"]
       interval: 30s
@@ -421,7 +423,7 @@ services:
       - QBIT_USERNAME=${QBIT_USERNAME:-admin}
       - QBIT_PASSWORD=${QBIT_PASSWORD:-adminadmin}
     volumes:
-      - ${MEDIA_ROOT}/media:/data/media
+      - ${MEDIA_ROOT:-/data}/media:/data/media
       - sonarr-config:/config/sonarr
       - radarr-config:/config/radarr
       - prowlarr-config:/config/prowlarr

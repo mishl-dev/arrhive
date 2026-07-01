@@ -78,6 +78,6 @@ Connect to your tailnet, then hit internal IPs:
 | `TS_AUTHKEY` | no | — |
 | `TS_EXTRA_ROUTES` | no | — |
 | `QBIT_USERNAME` | no | admin |
-| `QBIT_PASSWORD` | yes | — |
+| `QBIT_PASSWORD` | no | adminadmin |
 
 
