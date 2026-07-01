@@ -313,6 +313,7 @@ services:
       - TZ=${TZ:-UTC}
     volumes:
       - heimdall-config:/config
+      - ./config/heimdall/config:/config/heimdall/config
     networks:
       arr-stack:
         ipv4_address: 172.20.0.30
