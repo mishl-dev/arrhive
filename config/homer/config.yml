@@ -56,7 +56,7 @@ services:
         subtitle: "Media server"
         url: "http://172.20.0.4:8096"
 
-  - name: "Infrastructure"
+  - name: "Proxy"
     icon: "fas fa-server"
     items:
       - name: "FlareSolverr"
