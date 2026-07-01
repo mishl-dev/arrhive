@@ -7,7 +7,7 @@ A minimal Docker Compose media automation stack — Jellyfin, Sonarr, Radarr, Pr
 **1. Clone & enter**
 
 ```bash
-git clone https://github.com/your/repo.git arr-stack && cd arr-stack
+git clone https://github.com/mishl-dev/arrhive.git arr-stack && cd arr-stack
 ```
 
 **2. Configure**
@@ -25,14 +25,22 @@ Set: `MEDIA_ROOT`, `PUID`/`PGID`, `LAN_SUBNET`, `TZ`.
 docker compose -f docker-compose.arr-stack.yml up -d
 ```
 
-**4. Auth Tailscale**
+**4. Run configurator**
+
+```bash
+docker compose -f docker-compose.arr-stack.yml up configurator
+```
+
+Creates media dirs (`/data/media/movies`, `/data/media/tv`), configures Sonarr/Radarr root folders, connects qBittorrent, and links Prowlarr.
+
+**5. Auth Tailscale**
 
 ```bash
 docker logs tailscale
 # Open URL, authenticate, approve routes
 ```
 
-**5. Access via Tailscale**
+**6. Access via Tailscale**
 
 Connect to your tailnet, then hit internal IPs:
 
@@ -48,7 +56,7 @@ Connect to your tailnet, then hit internal IPs:
 | Bazarr | `http://172.20.0.9:6767` |
 | Tdarr | `http://172.20.0.22:8265` |
 
-**6. Configure in UIs**
+**7. Configure in UIs**
 
 - Prowlarr → add indexers (Nyaa.si for anime, etc.)
 - Sonarr/Radarr → quality profiles, connect download clients (qBittorrent `172.20.0.17:8085`, SABnzbd `172.20.0.18:8080`)
@@ -69,5 +77,7 @@ Connect to your tailnet, then hit internal IPs:
 | `TS_HOSTNAME` | no | arr-stack-vps |
 | `TS_AUTHKEY` | no | — |
 | `TS_EXTRA_ROUTES` | no | — |
+| `QBIT_USERNAME` | no | admin |
+| `QBIT_PASSWORD` | no | adminadmin |
 
 

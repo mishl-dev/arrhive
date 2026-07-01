@@ -408,3 +408,33 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # CONFIGURATOR - One-shot setup. Creates media dirs and configures services.
+  # Run: docker compose up configurator
+  # ═══════════════════════════════════════════════════════════════════════════
+  configurator:
+    build: ./configurator
+    container_name: configurator
+    <<: *default-security
+    environment:
+      - QBIT_USERNAME=${QBIT_USERNAME:-admin}
+      - QBIT_PASSWORD=${QBIT_PASSWORD:-adminadmin}
+    volumes:
+      - ${MEDIA_ROOT}/media:/data/media
+      - sonarr-config:/config/sonarr
+      - radarr-config:/config/radarr
+      - prowlarr-config:/config/prowlarr
+    networks:
+      - arr-stack
+    depends_on:
+      sonarr:
+        condition: service_healthy
+      radarr:
+        condition: service_healthy
+      prowlarr:
+        condition: service_healthy
+      qbittorrent:
+        condition: service_healthy
+    restart: "no"
+    logging: *default-logging
