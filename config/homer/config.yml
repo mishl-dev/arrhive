@@ -1,7 +1,6 @@
 ---
 title: "Arrhive"
 subtitle: "Media Stack"
-logo: ""
 header: true
 footer: false
 columns: "3"
@@ -17,11 +16,11 @@ services:
     icon: "fas fa-download"
     items:
       - name: "qBittorrent"
-        logo: "assets/icons/qbittorrent.png"
+        icon: "fas fa-download"
         subtitle: "Torrent client"
         url: "http://172.20.0.17:8085"
       - name: "SABnzbd"
-        logo: "assets/icons/sabnzbd.png"
+        icon: "fas fa-envelope"
         subtitle: "Usenet client"
         url: "http://172.20.0.18:8080"
 
@@ -29,23 +28,23 @@ services:
     icon: "fas fa-robot"
     items:
       - name: "Sonarr"
-        logo: "assets/icons/sonarr.png"
+        icon: "fas fa-tv"
         subtitle: "TV shows"
         url: "http://172.20.0.10:8989"
       - name: "Radarr"
-        logo: "assets/icons/radarr.png"
+        icon: "fas fa-film"
         subtitle: "Movies"
         url: "http://172.20.0.11:7878"
       - name: "Prowlarr"
-        logo: "assets/icons/prowlarr.png"
+        icon: "fas fa-satellite-dish"
         subtitle: "Indexers"
         url: "http://172.20.0.19:9696"
       - name: "Bazarr"
-        logo: "assets/icons/bazarr.png"
+        icon: "fas fa-closed-captioning"
         subtitle: "Subtitles"
         url: "http://172.20.0.9:6767"
       - name: "Seerr"
-        logo: "assets/icons/seerr.png"
+        icon: "fas fa-hand-pointer"
         subtitle: "Requests"
         url: "http://172.20.0.8:5055"
 
@@ -53,11 +52,11 @@ services:
     icon: "fas fa-play-circle"
     items:
       - name: "Jellyfin"
-        logo: "assets/icons/jellyfin.png"
+        icon: "fas fa-play-circle"
         subtitle: "Media server"
         url: "http://172.20.0.4:8096"
       - name: "Tdarr"
-        logo: "assets/icons/tdarr.png"
+        icon: "fas fa-arrows-rotate"
         subtitle: "Transcoding"
         url: "http://172.20.0.22:8265"
 
@@ -65,6 +64,6 @@ services:
     icon: "fas fa-wrench"
     items:
       - name: "FlareSolverr"
-        logo: "assets/icons/flaresolverr.png"
+        icon: "fas fa-shield-halved"
         subtitle: "CF solver"
         url: "http://172.20.0.21:8191"
