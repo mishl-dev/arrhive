@@ -425,6 +425,7 @@ services:
       - sonarr-config:/config/sonarr
       - radarr-config:/config/radarr
       - prowlarr-config:/config/prowlarr
+      - bazarr-config:/config/bazarr
     networks:
       - arr-stack
     depends_on:

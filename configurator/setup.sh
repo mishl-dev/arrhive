@@ -72,6 +72,7 @@ wait_for "Radarr"  "http://radarr:7878/api/v3/system/status" || true
 wait_for "Prowlarr" "http://prowlarr:9696/api/v1/system/status" || true
 wait_for "qBittorrent" "http://qbittorrent:8085/" || true
 wait_for "Tdarr"   "http://tdarr:8265" || true
+wait_for "Bazarr"  "http://bazarr:6767" || true
 
 # ─── Read API keys from config volumes ────────────────────────────────────────
 SONARR_API=$(get_api_key /config/sonarr/config.xml)
@@ -95,6 +96,13 @@ fi
 SONARR_API="${SONARR_API_KEY:-$SONARR_API}"
 RADARR_API="${RADARR_API_KEY:-$RADARR_API}"
 PROWLARR_API="${PROWLARR_API_KEY:-$PROWLARR_API}"
+
+# Bazarr API key from config.ini
+BAZARR_API=""
+if [ -f /config/bazarr/config.ini ]; then
+  BAZARR_API=$(grep -A1 '\[auth\]' /config/bazarr/config.ini 2>/dev/null | grep 'api_key' | cut -d'=' -f2 | tr -d ' ')
+fi
+BAZARR_API="${BAZARR_API_KEY:-$BAZARR_API}"
 
 # ═════════════════════════════════════════════════════════════════════════════
 # SONARR Configuration
@@ -219,6 +227,47 @@ if [ -n "$PROWLARR_API" ]; then
   log "Prowlarr configured"
 else
   warn "Skipping Prowlarr configuration (no API key)"
+fi
+
+# ═════════════════════════════════════════════════════════════════════════════
+# BAZARR Configuration
+# ═════════════════════════════════════════════════════════════════════════════
+if [ -n "$BAZARR_API" ]; then
+  log "Configuring Bazarr..."
+
+  # Add Sonarr
+  if [ -n "$SONARR_API" ]; then
+    api_post "http://bazarr:6767/api/sonarr" \
+      '{
+        "name":"Sonarr",
+        "hostname":"sonarr",
+        "port":8989,
+        "api_key":"'"$SONARR_API"'",
+        "use_ssl":false,
+        "base_url":"",
+        "root_folder":"/data/media/tv"
+      }' \
+      "$BAZARR_API" >/dev/null || warn "Bazarr Sonarr connection may already exist"
+  fi
+
+  # Add Radarr
+  if [ -n "$RADARR_API" ]; then
+    api_post "http://bazarr:6767/api/radarr" \
+      '{
+        "name":"Radarr",
+        "hostname":"radarr",
+        "port":7878,
+        "api_key":"'"$RADARR_API"'",
+        "use_ssl":false,
+        "base_url":"",
+        "root_folder":"/data/media/movies"
+      }' \
+      "$BAZARR_API" >/dev/null || warn "Bazarr Radarr connection may already exist"
+  fi
+
+  log "Bazarr configured"
+else
+  warn "Skipping Bazarr configuration (no API key)"
 fi
 
 # ═════════════════════════════════════════════════════════════════════════════
