@@ -67,11 +67,11 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
     command: >
-      sh -c "mkdir -p /data/media/books /data/media/podcasts /data/downloads /data/transcodes &&
+      sh -c "mkdir -p /data/media/audiobooks /data/media/ebooks /data/media/podcasts /data/downloads /data/transcodes &&
              chown -R $${PUID}:$${PGID} /data/media /data/downloads /data/transcodes &&
              find /data/media /data/downloads /data/transcodes -type d -exec chmod 755 {} + &&
              echo 'Ensured /data layout (owner $${PUID}:$${PGID}):' &&
-             ls -ld /data/media /data/media/books /data/media/podcasts /data/downloads /data/transcodes"
+             ls -ld /data/media /data/media/audiobooks /data/media/ebooks /data/media/podcasts /data/downloads /data/transcodes"
     volumes:
       - ${MEDIA_ROOT:-/data}:/data
     networks:
@@ -229,7 +229,8 @@ services:
     volumes:
       - audiobookshelf-config:/config
       - audiobookshelf-metadata:/metadata
-      - ${MEDIA_ROOT:-/data}/media/books:/audiobooks
+      - ${MEDIA_ROOT:-/data}/media/audiobooks:/audiobooks
+      - ${MEDIA_ROOT:-/data}/media/ebooks:/ebooks
       - ${MEDIA_ROOT:-/data}/media/podcasts:/podcasts
     networks:
       arr-stack:
