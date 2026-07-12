@@ -85,8 +85,12 @@ services:
     items:
       - name: "Jellyfin"
         logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/jellyfin.svg"
-        subtitle: "Media server"
+        subtitle: "Movies, TV, ebooks"
         url: "http://172.20.0.4:8096"
+      - name: "Audiobookshelf"
+        logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/audiobookshelf.svg"
+        subtitle: "Audiobooks"
+        url: "http://172.20.0.12:80"
 
   - name: "Proxy"
     icon: "fas fa-server"
