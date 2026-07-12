@@ -13,9 +13,9 @@ err()  { echo -e "${RED}[setup]${NC} $*"; }
 
 # ─── Media directories ────────────────────────────────────────────────────────
 log "Creating media and downloads directories..."
-mkdir -p /data/media/movies /data/media/tv /data/media/books /data/media/audiobooks /data/media/magazines /data/downloads
-chmod -R 777 /data/media /data/downloads
-log "Directories ready: /data/media/{movies,tv,books,audiobooks,magazines} and /data/downloads"
+mkdir -p /data/media/movies /data/media/tv /data/media/books /data/media/audiobooks /data/media/magazines /data/download
+chmod -R 777 /data/media /data/download
+log "Directories ready: /data/media/{movies,tv,books,audiobooks,magazines} and /data/download"
 
 # ─── Wait for service ─────────────────────────────────────────────────────────
 wait_for() {
@@ -274,7 +274,7 @@ fi
 # ═════════════════════════════════════════════════════════════════════════════
 QBIT_USER="${QBIT_USERNAME:-admin}"
 QBIT_PASS="${QBIT_PASSWORD:-adminadmin}"
-QBIT_SAVE="/data/downloads"
+QBIT_SAVE="/data/download"
 
 if wait_for "qBittorrent" "http://qbittorrent:8085/" 90; then
   log "Configuring qBittorrent save path..."
