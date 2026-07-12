@@ -11,6 +11,7 @@ volumes:
   jellyfin-cache:
   seerr-config:
   bazarr-config:
+  lazylibrarian-config:
   audiobookshelf-config:
   audiobookshelf-metadata:
   tailscale-state:
@@ -322,6 +323,37 @@ services:
       interval: 3m
       timeout: 10s
       retries: 2
+      start_period: 60s
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # LAZYLIBRARIAN - Book & audiobook automation (the *arr equivalent for books).
+  # Feeds Audiobookshelf (audiobooks) and Jellyfin (ebooks).
+  # Access: 172.20.0.13:5299 (via Tailscale)
+  # ═══════════════════════════════════════════════════════════════════════════
+  lazylibrarian:
+    image: lscr.io/linuxserver/lazylibrarian:latest
+    container_name: lazylibrarian
+    <<: *lsio-security
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
+    volumes:
+      - lazylibrarian-config:/config
+      - ${MEDIA_ROOT:-/data}/media/audiobooks:/audiobooks
+      - ${MEDIA_ROOT:-/data}/media/ebooks:/books
+      - ${MEDIA_ROOT:-/data}/downloads:/downloads
+      - ${MEDIA_ROOT:-/data}:/data
+    networks:
+      arr-stack:
+        ipv4_address: 172.20.0.13
+    restart: always
+    logging: *default-logging
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:5299/"]
+      interval: 2m
+      timeout: 15s
+      retries: 3
       start_period: 60s
 
   # ═══════════════════════════════════════════════════════════════════════════
