@@ -97,6 +97,7 @@ services:
     volumes:
       - qbittorrent-config:/config
       - ${MEDIA_ROOT:-/data}:/data
+      - ${MEDIA_ROOT:-/data}/downloads:/downloads
     networks:
       arr-stack:
         ipv4_address: 172.20.0.17
@@ -346,7 +347,7 @@ services:
       - shelfmark-config:/config
       - ${MEDIA_ROOT:-/data}/media/ebooks:/ebooks
       - ${MEDIA_ROOT:-/data}/media/audiobooks:/audiobooks
-      - ${MEDIA_ROOT:-/data}/downloads:/data/download
+      - ${MEDIA_ROOT:-/data}/downloads:/downloads
     networks:
       arr-stack:
         ipv4_address: 172.20.0.13
