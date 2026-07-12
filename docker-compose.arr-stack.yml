@@ -11,8 +11,6 @@ volumes:
   jellyfin-cache:
   seerr-config:
   bazarr-config:
-  audiobookshelf-config:
-  audiobookshelf-metadata:
   tailscale-state:
 
 #########################
@@ -67,11 +65,11 @@ services:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
     command: >
-      sh -c "mkdir -p /data/media/audiobooks /data/media/ebooks /data/media/podcasts /data/downloads /data/transcodes &&
+      sh -c "mkdir -p /data/media/audiobooks /data/media/ebooks /data/downloads /data/transcodes &&
              chown -R $${PUID}:$${PGID} /data/media /data/downloads /data/transcodes &&
              find /data/media /data/downloads /data/transcodes -type d -exec chmod 755 {} + &&
              echo 'Ensured /data layout (owner $${PUID}:$${PGID}):' &&
-             ls -ld /data/media /data/media/audiobooks /data/media/ebooks /data/media/podcasts /data/downloads /data/transcodes"
+             ls -ld /data/media /data/media/audiobooks /data/media/ebooks /data/downloads /data/transcodes"
     volumes:
       - ${MEDIA_ROOT:-/data}:/data
     networks:
@@ -214,29 +212,6 @@ services:
       timeout: 15s
       retries: 3
       start_period: 60s
-
-  # ═══════════════════════════════════════════════════════════════════════════
-  # AUDIOBOOKSHELF - Self-hosted audiobook, ebook & podcast server.
-  # Access: 172.20.0.12:80 (via Tailscale)
-  # ═══════════════════════════════════════════════════════════════════════════
-  audiobookshelf:
-    image: advplyr/audiobookshelf:latest
-    container_name: audiobookshelf
-    environment:
-      - PUID=${PUID:-1000}
-      - PGID=${PGID:-1000}
-      - TZ=${TZ:-UTC}
-    volumes:
-      - audiobookshelf-config:/config
-      - audiobookshelf-metadata:/metadata
-      - ${MEDIA_ROOT:-/data}/media/audiobooks:/audiobooks
-      - ${MEDIA_ROOT:-/data}/media/ebooks:/ebooks
-      - ${MEDIA_ROOT:-/data}/media/podcasts:/podcasts
-    networks:
-      arr-stack:
-        ipv4_address: 172.20.0.12
-    restart: always
-    logging: *default-logging
 
   # ═══════════════════════════════════════════════════════════════════════════
   # JELLYFIN - Media server. Stream your movies and TV shows like Netflix.
