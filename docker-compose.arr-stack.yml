@@ -11,7 +11,8 @@ volumes:
   jellyfin-cache:
   seerr-config:
   bazarr-config:
-  lazylibrarian-config:
+  audiobookshelf-config:
+  audiobookshelf-metadata:
   tailscale-state:
 
 #########################
@@ -215,33 +216,26 @@ services:
       start_period: 60s
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # LAZYLIBRARIAN - Ebook, audiobook, and magazine monitor.
-  # Access: 172.20.0.12:5299 (via Tailscale)
+  # AUDIOBOOKSHELF - Self-hosted audiobook, ebook & podcast server.
+  # Access: 172.20.0.12:80 (via Tailscale)
   # ═══════════════════════════════════════════════════════════════════════════
-  lazylibrarian:
-    image: lscr.io/linuxserver/lazylibrarian:latest
-    container_name: lazylibrarian
-    <<: *lsio-security
+  audiobookshelf:
+    image: advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
     volumes:
-      - lazylibrarian-config:/config
-      - ${MEDIA_ROOT:-/data}/media/books:/books
-      - ${MEDIA_ROOT:-/data}/downloads:/downloads
-      - ${MEDIA_ROOT:-/data}:/data
+      - audiobookshelf-config:/config
+      - audiobookshelf-metadata:/metadata
+      - ${MEDIA_ROOT:-/data}/media/books:/audiobooks
+      - ${MEDIA_ROOT:-/data}/media/podcasts:/podcasts
     networks:
       arr-stack:
         ipv4_address: 172.20.0.12
     restart: always
     logging: *default-logging
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://localhost:5299/"]
-      interval: 2m
-      timeout: 15s
-      retries: 3
-      start_period: 60s
 
   # ═══════════════════════════════════════════════════════════════════════════
   # JELLYFIN - Media server. Stream your movies and TV shows like Netflix.

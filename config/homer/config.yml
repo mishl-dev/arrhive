@@ -84,10 +84,10 @@ services:
   - name: "Books"
     icon: "fas fa-book"
     items:
-      - name: "LazyLibrarian"
-        icon: "fas fa-book-open"
-        subtitle: "Ebooks, audiobooks, magazines"
-        url: "http://172.20.0.12:5299"
+      - name: "Audiobookshelf"
+        logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/audiobookshelf.svg"
+        subtitle: "Audiobooks, ebooks, podcasts"
+        url: "http://172.20.0.12:80"
 
   - name: "Playback"
     icon: "fas fa-play-circle"
