@@ -270,6 +270,38 @@ else
 fi
 
 # ═════════════════════════════════════════════════════════════════════════════
+# QBITTORRENT Configuration
+# ═════════════════════════════════════════════════════════════════════════════
+QBIT_USER="${QBIT_USERNAME:-admin}"
+QBIT_PASS="${QBIT_PASSWORD:-adminadmin}"
+QBIT_SAVE="/data/downloads"
+
+if wait_for "qBittorrent" "http://qbittorrent:8085/" 90; then
+  log "Configuring qBittorrent save path..."
+  rm -f /tmp/qbit.cookies
+  if curl -s -c /tmp/qbit.cookies -b /tmp/qbit.cookies \
+       -d "username=${QBIT_USER}&password=${QBIT_PASS}" \
+       "http://qbittorrent:8085/api/v2/auth/login" | grep -qi "Ok"; then
+    CURRENT=$(curl -s -b /tmp/qbit.cookies "http://qbittorrent:8085/api/v2/app/preferences" \
+              | grep -o '"save_path":"[^"]*"' | head -1)
+    if [ "${CURRENT}" != "\"save_path\":\"${QBIT_SAVE}\"" ]; then
+      curl -s -b /tmp/qbit.cookies -X POST \
+        -H "Content-Type: application/json" \
+        --data "{\"save_path\":\"${QBIT_SAVE}\"}" \
+        "http://qbittorrent:8085/api/v2/app/setPreferences" \
+        && log "qBittorrent save path set to ${QBIT_SAVE}" \
+        || warn "Failed to set qBittorrent save path"
+    else
+      log "qBittorrent save path already ${QBIT_SAVE}"
+    fi
+  else
+    warn "qBittorrent login failed; set save path to ${QBIT_SAVE} manually in the web UI"
+  fi
+else
+  warn "qBittorrent not reachable; set save path to ${QBIT_SAVE} manually in the web UI"
+fi
+
+# ═════════════════════════════════════════════════════════════════════════════
 # JELLYFIN Configuration
 # ═════════════════════════════════════════════════════════════════════════════
 log "Jellyfin — add media libraries manually in the web UI:"
