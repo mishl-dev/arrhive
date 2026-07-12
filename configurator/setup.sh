@@ -13,9 +13,9 @@ err()  { echo -e "${RED}[setup]${NC} $*"; }
 
 # ─── Media directories ────────────────────────────────────────────────────────
 log "Creating media and downloads directories..."
-mkdir -p /data/media/movies /data/media/tv /data/downloads
+mkdir -p /data/media/movies /data/media/tv /data/media/books /data/media/audiobooks /data/media/magazines /data/downloads
 chmod -R 777 /data/media /data/downloads
-log "Directories ready: /data/media/{movies,tv} and /data/downloads"
+log "Directories ready: /data/media/{movies,tv,books,audiobooks,magazines} and /data/downloads"
 
 # ─── Wait for service ─────────────────────────────────────────────────────────
 wait_for() {

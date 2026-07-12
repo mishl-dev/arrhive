@@ -11,6 +11,7 @@ volumes:
   jellyfin-cache:
   seerr-config:
   bazarr-config:
+  lazylibrarian-config:
   tailscale-state:
 
 #########################
@@ -185,6 +186,33 @@ services:
     logging: *default-logging
     healthcheck:
       test: ["CMD", "curl", "-sf", "http://localhost:7878/"]
+      interval: 2m
+      timeout: 15s
+      retries: 3
+      start_period: 60s
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # LAZYLIBRARIAN - Ebook, audiobook, and magazine monitor.
+  # Access: 172.20.0.12:5299 (via Tailscale)
+  # ═══════════════════════════════════════════════════════════════════════════
+  lazylibrarian:
+    image: lscr.io/linuxserver/lazylibrarian:latest
+    container_name: lazylibrarian
+    <<: *lsio-security
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-UTC}
+    volumes:
+      - lazylibrarian-config:/config
+      - ${MEDIA_ROOT:-/data}:/data
+    networks:
+      arr-stack:
+        ipv4_address: 172.20.0.12
+    restart: always
+    logging: *default-logging
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:5299/"]
       interval: 2m
       timeout: 15s
       retries: 3

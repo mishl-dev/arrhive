@@ -48,6 +48,14 @@ services:
         subtitle: "Requests"
         url: "http://172.20.0.8:5055"
 
+  - name: "Books"
+    icon: "fas fa-book"
+    items:
+      - name: "LazyLibrarian"
+        icon: "fas fa-book-open"
+        subtitle: "Ebooks, audiobooks, magazines"
+        url: "http://172.20.0.12:5299"
+
   - name: "Playback"
     icon: "fas fa-play-circle"
     items:
