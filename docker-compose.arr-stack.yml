@@ -11,7 +11,7 @@ volumes:
   jellyfin-cache:
   seerr-config:
   bazarr-config:
-  lazylibrarian-config:
+  shelfmark-config:
   audiobookshelf-config:
   audiobookshelf-metadata:
   tailscale-state:
@@ -326,31 +326,31 @@ services:
       start_period: 60s
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # LAZYLIBRARIAN - Book & audiobook automation (the *arr equivalent for books).
-  # Feeds Audiobookshelf (audiobooks) and Jellyfin (ebooks).
-  # Access: 172.20.0.13:5299 (via Tailscale)
+  # SHELFMARK - Self-hosted book & audiobook search/request hub.
+  # Manual search + download tool; point INGEST_DIR at CWA/Grimmory for auto-import.
+  # Access: 172.20.0.13:8084 (via Tailscale)
   # ═══════════════════════════════════════════════════════════════════════════
-  lazylibrarian:
-    image: lscr.io/linuxserver/lazylibrarian:latest
-    container_name: lazylibrarian
-    <<: *lsio-security
+  shelfmark:
+    image: ghcr.io/calibrain/shelfmark:latest
+    container_name: shelfmark
     environment:
       - PUID=${PUID:-1000}
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
+      - FLASK_PORT=8084
+      - INGEST_DIR=/books
+      - SEARCH_MODE=universal
     volumes:
-      - lazylibrarian-config:/config
-      - ${MEDIA_ROOT:-/data}/media/audiobooks:/audiobooks
-      - ${MEDIA_ROOT:-/data}/media/ebooks:/books
+      - shelfmark-config:/config
+      - ${MEDIA_ROOT:-/data}/media/audiobooks:/books
       - ${MEDIA_ROOT:-/data}/downloads:/downloads
-      - ${MEDIA_ROOT:-/data}:/data
     networks:
       arr-stack:
         ipv4_address: 172.20.0.13
     restart: always
     logging: *default-logging
     healthcheck:
-      test: ["CMD", "curl", "-sf", "http://localhost:5299/"]
+      test: ["CMD", "curl", "-sf", "http://localhost:8084/api/health"]
       interval: 2m
       timeout: 15s
       retries: 3

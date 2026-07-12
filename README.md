@@ -1,6 +1,6 @@
 # Arrhive
 
-A minimal Docker Compose media automation stack — Jellyfin, Sonarr, Radarr, Prowlarr, qBittorrent, SABnzbd, Seerr, Bazarr, LazyLibrarian. All access via Tailscale, no open ports.
+A minimal Docker Compose media automation stack — Jellyfin, Sonarr, Radarr, Prowlarr, qBittorrent, SABnzbd, Seerr, Bazarr, Shelfmark. All access via Tailscale, no open ports.
 
 ## Setup
 
@@ -49,7 +49,7 @@ Connect to your tailnet, then hit internal IPs:
 | Jellyfin | http://172.20.0.4:8096 |
 | Sonarr | http://172.20.0.10:8989 |
 | Radarr | http://172.20.0.11:7878 |
-| LazyLibrarian | http://172.20.0.12:5299 |
+| Shelfmark | http://172.20.0.13:8084 |
 | qBittorrent | http://172.20.0.17:8085 |
 | SABnzbd | http://172.20.0.18:8080 |
 | Prowlarr | http://172.20.0.19:9696 |
@@ -60,6 +60,6 @@ Connect to your tailnet, then hit internal IPs:
 **7. Configure in UIs**
 
 - Prowlarr → add indexers (Nyaa.si for anime, etc.)
-- LazyLibrarian → configure ebook, audiobook, and magazine sources; books map to `/books` and downloads to `/downloads`
+- Shelfmark → configure sources/metadata providers; downloads go to `/books` (point at your CWA/Grimmory ingest folder for auto-import)
 - Seerr → link Sonarr/Radarr
 - Jellyfin → add media libraries at `/data/media`

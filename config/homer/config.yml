@@ -79,10 +79,10 @@ services:
         logo: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/seerr.svg"
         subtitle: "Requests"
         url: "http://172.20.0.8:5055"
-      - name: "LazyLibrarian"
+      - name: "Shelfmark"
         icon: "fas fa-book-open"
         subtitle: "Books & audiobooks"
-        url: "http://172.20.0.13:5299"
+        url: "http://172.20.0.13:8084"
 
   - name: "Playback"
     icon: "fas fa-play-circle"
