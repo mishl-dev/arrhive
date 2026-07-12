@@ -6,6 +6,39 @@ footer: false
 columns: "3"
 connectivityCheck: true
 
+theme: neon
+defaults:
+  layout: columns
+  colorTheme: dark
+
+colors:
+  dark:
+    highlight-primary: "#7c3aed"
+    highlight-secondary: "#a855f7"
+    highlight-hover: "#c084fc"
+    background: "#0f0f17"
+    card-background: "#1a1a26"
+    text: "#e8e8f0"
+    text-header: "#ffffff"
+    text-title: "#fafafa"
+    text-subtitle: "#b8b8c8"
+    card-shadow: rgba(0, 0, 0, 0.5)
+    link: "#a855f7"
+    link-hover: "#c084fc"
+  light:
+    highlight-primary: "#7c3aed"
+    highlight-secondary: "#a855f7"
+    highlight-hover: "#c084fc"
+    background: "#f5f3ff"
+    card-background: "#ffffff"
+    text: "#2d2d3a"
+    text-header: "#1a1a26"
+    text-title: "#1a1a26"
+    text-subtitle: "#5a5a6a"
+    card-shadow: rgba(124, 58, 237, 0.1)
+    link: "#7c3aed"
+    link-hover: "#a855f7"
+
 links:
   - name: "GitHub"
     icon: "fab fa-github"
