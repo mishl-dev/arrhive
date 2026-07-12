@@ -346,7 +346,7 @@ services:
       - shelfmark-config:/config
       - ${MEDIA_ROOT:-/data}/media/ebooks:/ebooks
       - ${MEDIA_ROOT:-/data}/media/audiobooks:/audiobooks
-      - ${MEDIA_ROOT:-/data}/downloads:/downloads
+      - ${MEDIA_ROOT:-/data}/downloads:/data/download
     networks:
       arr-stack:
         ipv4_address: 172.20.0.13
