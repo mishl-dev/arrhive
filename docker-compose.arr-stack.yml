@@ -232,6 +232,7 @@ services:
       - audiobookshelf-config:/config
       - audiobookshelf-metadata:/metadata
       - ${MEDIA_ROOT:-/data}/media/audiobooks:/audiobooks
+      - ${MEDIA_ROOT:-/data}/media/ebooks:/ebooks
     networks:
       arr-stack:
         ipv4_address: 172.20.0.12
