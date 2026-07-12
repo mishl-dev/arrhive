@@ -327,7 +327,8 @@ services:
 
   # ═══════════════════════════════════════════════════════════════════════════
   # SHELFMARK - Self-hosted book & audiobook search/request hub.
-  # Manual search + download tool; point INGEST_DIR at CWA/Grimmory for auto-import.
+  # Ebooks -> /ebooks (INGEST_DIR), audiobooks -> /audiobooks (DESTINATION_AUDIOBOOK).
+  # Point the ebook volume at your CWA/Grimmory ingest folder for auto-import.
   # Access: 172.20.0.13:8084 (via Tailscale)
   # ═══════════════════════════════════════════════════════════════════════════
   shelfmark:
@@ -338,11 +339,13 @@ services:
       - PGID=${PGID:-1000}
       - TZ=${TZ:-UTC}
       - FLASK_PORT=8084
-      - INGEST_DIR=/books
+      - INGEST_DIR=/ebooks
+      - DESTINATION_AUDIOBOOK=/audiobooks
       - SEARCH_MODE=universal
     volumes:
       - shelfmark-config:/config
-      - ${MEDIA_ROOT:-/data}/media/audiobooks:/books
+      - ${MEDIA_ROOT:-/data}/media/ebooks:/ebooks
+      - ${MEDIA_ROOT:-/data}/media/audiobooks:/audiobooks
       - ${MEDIA_ROOT:-/data}/downloads:/downloads
     networks:
       arr-stack:
