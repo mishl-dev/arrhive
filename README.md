@@ -31,7 +31,7 @@ docker compose -f docker-compose.arr-stack.yml up -d
 docker compose -f docker-compose.arr-stack.yml --profile setup up configurator
 ```
 
-Creates media dirs (`/data/media/movies`, `/data/media/tv`, `/data/media/books`, `/data/media/audiobooks`, `/data/media/magazines`), configures Sonarr/Radarr root folders, connects qBittorrent, and links Prowlarr.
+Creates media dirs (`/data/media/movies`, `/data/media/tv`, `/data/media/books`, `/data/media/audiobooks`, `/data/media/magazines`, `/data/downloads`), configures Sonarr/Radarr root folders, connects qBittorrent, and links Prowlarr.
 
 **5. Auth Tailscale**
 
@@ -60,7 +60,6 @@ Connect to your tailnet, then hit internal IPs:
 **7. Configure in UIs**
 
 - Prowlarr → add indexers (Nyaa.si for anime, etc.)
-- LazyLibrarian → configure ebook, audiobook, and magazine sources
+- LazyLibrarian → configure ebook, audiobook, and magazine sources; books map to `/books` and downloads to `/downloads`
 - Seerr → link Sonarr/Radarr
 - Jellyfin → add media libraries at `/data/media`
-

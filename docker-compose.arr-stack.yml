@@ -205,6 +205,8 @@ services:
       - TZ=${TZ:-UTC}
     volumes:
       - lazylibrarian-config:/config
+      - ${MEDIA_ROOT:-/data}/media/books:/books
+      - ${MEDIA_ROOT:-/data}/downloads:/downloads
       - ${MEDIA_ROOT:-/data}:/data
     networks:
       arr-stack:
